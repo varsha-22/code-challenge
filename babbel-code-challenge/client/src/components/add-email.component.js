@@ -52,7 +52,13 @@ export default class AddEmail extends Component {
     const validate = await EmailDataService.checkEmail(firstNameLastName)
 
     if (validate.data.response.status === 0) {
-      generatedEmail = nameInitialLastName
+      const validateAgain = await EmailDataService.checkEmail(nameInitialLastName)
+      
+      if (validateAgain.data.response.status === 0) {
+        alert("The gerenated email ID is not present in mail box")
+      } else {
+          generatedEmail = nameInitialLastName
+      }
     } else {
       generatedEmail = firstNameLastName
     }
